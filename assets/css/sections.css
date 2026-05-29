@@ -461,6 +461,13 @@
   margin-bottom: var(--space-8);
 }
 
+.download-cards--single {
+  grid-template-columns: 1fr;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .download-card {
   background: var(--bg-elevated);
   border: 1px solid var(--border-default);
