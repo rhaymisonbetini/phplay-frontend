@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0E1116" />
+
+  <title>Phplay — A modern desktop REPL for PHP</title>
+  <meta name="description" content="Phplay is a modern desktop REPL for PHP. Run your code in your project's real context. Open source, free, and built for serious developers." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://rhaymisonbetini.github.io/Phplay/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Phplay — A modern desktop REPL for PHP" />
+  <meta property="og:description" content="Phplay is a modern desktop REPL for PHP. Run your code in your project's real context. Open source, free, and built for serious developers." />
+  <meta property="og:image" content="assets/images/og-image.png" />
+  <meta property="og:url" content="https://rhaymisonbetini.github.io/Phplay/" />
+  <meta property="og:site_name" content="Phplay" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Phplay — A modern desktop REPL for PHP" />
+  <meta name="twitter:description" content="A modern desktop REPL for PHP. Open source, free, built for serious developers." />
+  <meta name="twitter:image" content="assets/images/og-image.png" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
+
+  <!-- Font preloads -->
+  <link rel="preload" href="assets/fonts/SpaceGrotesk-Bold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/sections.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+<!-- Global interactive background canvas (fixed, covers full viewport) -->
+<canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+<!-- Skip to content -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- Cursor glow -->
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="site-nav" id="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+
+    <a href="#" class="nav-logo" aria-label="Phplay home">
+      <svg class="nav-logo-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="30" cy="42" rx="18" ry="16" fill="currentColor"/>
+        <ellipse cx="44" cy="28" rx="16" ry="17" fill="currentColor"/>
+        <ellipse cx="32" cy="17" rx="9" ry="11" fill="currentColor"/>
+        <ellipse cx="32" cy="18" rx="5.5" ry="7" fill="currentColor" opacity="0.45"/>
+        <path d="M53 36 Q62 44 57 55 Q55 60 51 58" stroke="currentColor" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <circle cx="47" cy="24" r="2.5" fill="#07080C"/>
+        <circle cx="47.8" cy="23.2" r="0.9" fill="white" opacity="0.7"/>
+        <rect x="16" y="54" width="9" height="11" rx="4" fill="currentColor"/>
+        <rect x="28" y="56" width="9" height="9" rx="4" fill="currentColor"/>
+        <rect x="37" y="56" width="9" height="9" rx="4" fill="currentColor"/>
+        <path d="M14 40 Q4 36 7 26 Q9 20 14 23" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="nav-logo-text">Phplay</span>
+    </a>
+
+    <div class="nav-links" role="list">
+      <a class="nav-link" href="#features" role="listitem">Features</a>
+      <a class="nav-link" href="#why-phplay" role="listitem">Why Phplay</a>
+      <a class="nav-link" href="#open-source" role="listitem">Open Source</a>
+      <a class="nav-link" href="#download" role="listitem">Download</a>
+    </div>
+
+    <div class="nav-actions">
+      <a class="github-badge" href="https://github.com/rhaymisonbetini/Phplay" target="_blank" rel="noopener noreferrer" aria-label="Star Phplay on GitHub">
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        Star on GitHub
+      </a>
+
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-mobile-overlay">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+  </div>
+</nav>
+
+<!-- Mobile overlay -->
+<div class="nav-mobile-overlay" id="nav-mobile-overlay" role="dialog" aria-label="Navigation menu" aria-modal="true">
+  <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close navigation menu">✕</button>
+  <a class="nav-link" href="#features">Features</a>
+  <a class="nav-link" href="#why-phplay">Why Phplay</a>
+  <a class="nav-link" href="#open-source">Open Source</a>
+  <a class="nav-link" href="#download">Download</a>
+  <a class="github-badge" href="https://github.com/rhaymisonbetini/Phplay" target="_blank" rel="noopener noreferrer" style="margin-top: 16px;">
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+    </svg>
+    Star on GitHub
+  </a>
+</div>
+
+
+<main id="main-content">
+
+  <!-- ===== HERO ===== -->
+  <header class="hero" aria-label="Phplay — PHP, played differently">
+
+    <div class="gradient-mesh" aria-hidden="true">
+      <div class="mesh-orb mesh-orb-1"></div>
+      <div class="mesh-orb mesh-orb-2"></div>
+      <div class="mesh-orb mesh-orb-3"></div>
+    </div>
+
+    <div class="hero-content">
+
+      <!-- Logo -->
+      <svg class="hero-logo" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="30" cy="42" rx="18" ry="16" fill="currentColor"/>
+        <ellipse cx="44" cy="28" rx="16" ry="17" fill="currentColor"/>
+        <ellipse cx="32" cy="17" rx="9" ry="11" fill="currentColor"/>
+        <ellipse cx="32" cy="18" rx="5.5" ry="7" fill="currentColor" opacity="0.45"/>
+        <path d="M53 36 Q62 44 57 55 Q55 60 51 58" stroke="currentColor" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <circle cx="47" cy="24" r="2.5" fill="#07080C"/>
+        <circle cx="47.8" cy="23.2" r="0.9" fill="white" opacity="0.7"/>
+        <path d="M52 39 L59 46" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+        <rect x="16" y="54" width="9" height="11" rx="4" fill="currentColor"/>
+        <rect x="28" y="56" width="9" height="9" rx="4" fill="currentColor"/>
+        <rect x="37" y="56" width="9" height="9" rx="4" fill="currentColor"/>
+        <path d="M14 40 Q4 36 7 26 Q9 20 14 23" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      </svg>
+
+      <p class="hero-eyebrow">
+        OPEN SOURCE&nbsp;·&nbsp;<span>MIT LICENSE</span>&nbsp;·&nbsp;v0.1.0
+      </p>
+
+      <h1 class="hero-headline">PHP, played differently.</h1>
+
+      <p class="hero-subhead">
+        A modern desktop REPL that runs your code in your project's real context.
+        Built on Electron. Designed for serious PHP developers.
+      </p>
+
+      <div class="hero-ctas">
+        <!-- REPLACE these href values with actual GitHub release URLs when Electron builds are published -->
+        <a class="btn btn-primary" href="#download-linux" id="hero-dl-linux" aria-label="Download Phplay for Linux">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+          Download for Linux
+        </a>
+        <a class="btn btn-secondary" href="#download-windows" id="hero-dl-win" aria-label="Download Phplay for Windows">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 12V6.75l6-1.32v6.57H3zm17 0v-7.5l-8 1.75v5.75h8zM3 13h6v6.43l-6-1.05V13zm17 0h-8v5.87l8 1.38V13z"/></svg>
+          Download for Windows
+        </a>
+      </div>
+
+      <a class="hero-cta-secondary" href="https://github.com/rhaymisonbetini/Phplay" target="_blank" rel="noopener noreferrer">
+        View on GitHub
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06L7.28 12.78a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/></svg>
+      </a>
+
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="scroll-indicator">
+        <svg class="scroll-indicator-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        scroll to explore
+      </div>
+    </div>
+
+  </header>
+
+
+  <!-- ===== WHAT IS PHPLAY ===== -->
+  <section class="section-what section-outer" id="what-is-phplay" aria-label="What is Phplay">
+    <div class="section-inner--narrow">
+
+      <p class="eyebrow reveal">WHAT IT IS</p>
+      <h2 class="what-headline reveal">Tinker with PHP. Without leaving your project.</h2>
+
+      <p class="what-body reveal" data-reveal-delay="100">
+        Phplay is a desktop application that lets you write, run, and inspect PHP code in the real context of any Laravel, Symfony, or WordPress project. Open a folder, write a snippet, hit run — your code executes inside your project's environment, with full access to its models, configuration, and database.
+      </p>
+
+      <p class="what-body reveal" data-reveal-delay="180">
+        No more cluttering your codebase with temporary routes or controllers. No more juggling <code style="font-family:'JetBrains Mono',monospace;font-size:0.9em;color:var(--php-400);background:rgba(157,91,255,0.08);padding:1px 6px;border-radius:4px;">tinker</code> in a terminal that can barely show you a string. Just a real editor, a real output panel, and the rest of your stack at your fingertips.
+      </p>
+
+      <div class="grid-3" style="margin-top: var(--space-4);">
+
+        <div class="card reveal reveal-delay-1" aria-label="Instant context feature">
+          <span class="pillar-icon" aria-hidden="true">⚡</span>
+          <p class="pillar-title">Instant context</p>
+          <p class="pillar-body">Open a project. Phplay detects the framework, boots it, and your snippets run with everything available.</p>
+        </div>
+
+        <div class="card reveal reveal-delay-2" aria-label="Inspect deeply feature">
+          <span class="pillar-icon" aria-hidden="true">🔍</span>
+          <p class="pillar-title">Inspect deeply</p>
+          <p class="pillar-body">Rich output panel renders objects, collections, and tables — not text dumps. See your data the way it actually is.</p>
+        </div>
+
+        <div class="card reveal reveal-delay-3" aria-label="AI built in feature">
+          <span class="pillar-icon" aria-hidden="true">🤖</span>
+          <p class="pillar-title">AI built in</p>
+          <p class="pillar-body">Bring your own Claude or OpenAI key. Get code explanations, error fixes, refactors, and optimizations inline.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== FEATURE SHOWCASE ===== -->
+  <section class="section-features section-outer" id="features" aria-label="Feature showcase">
+    <div class="features-inner">
+
+      <!-- Row 1 — Execution -->
+      <div class="feature-row">
+        <div class="feature-content reveal reveal-left">
+          <p class="eyebrow">EXECUTION</p>
+          <h3 class="feature-headline">Run any PHP. See real results.</h3>
+          <p class="feature-body">Write code in a syntax-highlighted editor powered by Monaco — the same editor inside VS Code. Hit <kbd style="font-family:'JetBrains Mono',monospace;font-size:0.85em;padding:2px 6px;background:var(--bg-overlay);border:1px solid var(--border-default);border-radius:4px;">Ctrl+Enter</kbd>. Phplay runs it against your project's PHP, captures stdout, stderr, and exit code, and renders the result. Arrays, collections, objects, errors — all formatted to be readable.</p>
+        </div>
+        <div class="feature-media reveal reveal-right" data-reveal-delay="100">
+          <div class="screenshot-frame">
+            <img
+              src="assets/usage_1.png"
+              alt="Phplay editor showing PHP code execution result — get_class_methods returning an array with 301 items"
+              loading="lazy"
+              decoding="async"
+              width="1283"
+              height="838"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 — Context (reversed) -->
+      <div class="feature-row feature-row--reverse">
+        <div class="feature-content reveal reveal-right">
+          <p class="eyebrow">CONTEXT</p>
+          <h3 class="feature-headline">Your project's context, fully booted.</h3>
+          <p class="feature-body">Phplay detects Laravel, Symfony, WordPress, or plain PHP, and boots the framework before running your snippet. Your models, container, configuration, environment variables — everything is there. Query the database, call services, dispatch events. Without writing a single route.</p>
+        </div>
+        <div class="feature-media reveal reveal-left" data-reveal-delay="100">
+          <div class="screenshot-frame">
+            <img
+              src="assets/main_1.png"
+              alt="Phplay showing User::find(1) Eloquent model output with all attributes rendered"
+              loading="lazy"
+              decoding="async"
+              width="1283"
+              height="838"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 — AI -->
+      <div class="feature-row">
+        <div class="feature-content reveal reveal-left">
+          <p class="eyebrow">AI</p>
+          <h3 class="feature-headline">Claude and GPT, inside the REPL.</h3>
+          <p class="feature-body">Bring your own API key — Claude or OpenAI. Ask the AI to explain what your code does, fix an error, refactor a function, or suggest optimizations. The model sees your snippet and your project context. Output streams directly into the side panel. Your keys stay local; nothing is sent through Phplay servers (there are no Phplay servers).</p>
+        </div>
+        <div class="feature-media reveal reveal-right" data-reveal-delay="100">
+          <div class="screenshot-frame">
+            <img
+              src="assets/IA_integration.png"
+              alt="Phplay AI Assistant panel showing Claude and GPT tabs with action buttons for explain, fix, refactor"
+              loading="lazy"
+              decoding="async"
+              width="1283"
+              height="838"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 4 — Multi-session (reversed) -->
+      <div class="feature-row feature-row--reverse">
+        <div class="feature-content reveal reveal-right">
+          <p class="eyebrow">WORKFLOW</p>
+          <h3 class="feature-headline">One window. Many experiments.</h3>
+          <p class="feature-body">Open multiple sessions side by side, each with its own snippet, its own state, its own history. Compare two queries. Test a hypothesis without losing the previous one. <kbd style="font-family:'JetBrains Mono',monospace;font-size:0.85em;padding:2px 6px;background:var(--bg-overlay);border:1px solid var(--border-default);border-radius:4px;">Ctrl+T</kbd> for a new session, <kbd style="font-family:'JetBrains Mono',monospace;font-size:0.85em;padding:2px 6px;background:var(--bg-overlay);border:1px solid var(--border-default);border-radius:4px;">Ctrl+W</kbd> to close.</p>
+        </div>
+        <div class="feature-media reveal reveal-left" data-reveal-delay="100">
+          <div class="screenshot-frame">
+            <img
+              src="assets/multsession.png"
+              alt="Phplay showing multiple session tabs open simultaneously"
+              loading="lazy"
+              decoding="async"
+              width="1283"
+              height="838"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 5 — Discovery -->
+      <div class="feature-row">
+        <div class="feature-content reveal reveal-left">
+          <p class="eyebrow">DISCOVERY</p>
+          <h3 class="feature-headline">Autocomplete that knows your code.</h3>
+          <p class="feature-body">Type <code style="font-family:'JetBrains Mono',monospace;font-size:0.9em;color:var(--php-400);background:rgba(157,91,255,0.08);padding:1px 6px;border-radius:4px;">App\Models\</code> and Phplay shows every model in your project. Phplay's discovery layer scans your project's namespaces, classes, and methods. Find what you need without leaving the editor.</p>
+        </div>
+        <div class="feature-media reveal reveal-right" data-reveal-delay="100">
+          <div class="screenshot-frame">
+            <img
+              src="assets/discovery.png"
+              alt="Phplay autocomplete dropdown showing project classes and namespaces"
+              loading="lazy"
+              decoding="async"
+              width="1283"
+              height="838"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 6 — History (reversed) -->
+      <div class="feature-row feature-row--reverse">
+        <div class="feature-content reveal reveal-right">
+          <p class="eyebrow">HISTORY</p>
+          <h3 class="feature-headline">Every run, remembered.</h3>
+          <p class="feature-body">Phplay keeps a searchable log of every snippet you've executed, with timestamps, durations, and outcomes. Find that one-liner you wrote last week. Re-run it. Edit it. Save it.</p>
+        </div>
+        <div class="feature-media reveal reveal-left" data-reveal-delay="100">
+          <div class="screenshot-frame">
+            <img
+              src="assets/history.png"
+              alt="Phplay execution history panel showing past snippets with timestamps and results"
+              loading="lazy"
+              decoding="async"
+              width="1283"
+              height="838"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 7 — Snippets -->
+      <div class="feature-row">
+        <div class="feature-content reveal reveal-left">
+          <p class="eyebrow">SNIPPETS</p>
+          <h3 class="feature-headline">Save what's worth keeping.</h3>
+          <p class="feature-body">Promote your best one-liners into permanent snippets. Loaded into any session with one click. Build a personal library of debug helpers, common queries, and the magic incantations you always forget.</p>
+        </div>
+        <div class="feature-media reveal reveal-right" data-reveal-delay="100">
+          <div class="screenshot-frame">
+            <img
+              src="assets/snippets.png"
+              alt="Phplay snippets library panel showing saved code snippets"
+              loading="lazy"
+              decoding="async"
+              width="1283"
+              height="838"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 8 — Themes (reversed) -->
+      <div class="feature-row feature-row--reverse">
+        <div class="feature-content reveal reveal-right">
+          <p class="eyebrow">THEMES</p>
+          <h3 class="feature-headline">Make it yours.</h3>
+          <p class="feature-body">Built-in themes — Dracula Neon (default), Midnight, Nord — with more coming. Both the editor and the entire app respect the theme. Pick the one that fits your mood, or your monitor, or your retinas.</p>
+        </div>
+        <div class="feature-media reveal reveal-left" data-reveal-delay="100">
+          <div class="screenshot-frame">
+            <img
+              src="assets/themes.png"
+              alt="Phplay themes selector showing Dracula Neon, Midnight, and Nord theme options"
+              loading="lazy"
+              decoding="async"
+              width="1283"
+              height="838"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 9 — Observability -->
+      <div class="feature-row">
+        <div class="feature-content reveal reveal-left">
+          <p class="eyebrow">OBSERVABILITY</p>
+          <h3 class="feature-headline">See what Phplay is doing.</h3>
+          <p class="feature-body">A built-in log panel shows execution events, language server activity, project discovery, errors, and performance metrics. Filter by category, search by text. Useful when something weird happens — or when you're just curious.</p>
+        </div>
+        <div class="feature-media reveal reveal-right" data-reveal-delay="100">
+          <div class="screenshot-frame">
+            <img
+              src="assets/logs.png"
+              alt="Phplay logs panel showing execution events, errors, and performance metrics"
+              loading="lazy"
+              decoding="async"
+              width="1283"
+              height="838"
+            />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== WHY PHPLAY ===== -->
+  <section class="section-why section-outer" id="why-phplay" aria-label="Why Phplay">
+    <div class="section-inner">
+
+      <p class="eyebrow reveal">WHY PHPLAY</p>
+      <h2 class="why-headline reveal">Built for how PHP developers actually work.</h2>
+
+      <p class="why-body reveal">
+        Phplay was built by a PHP developer who got tired of polluting projects with temporary debug routes, struggling to read <code style="font-family:'JetBrains Mono',monospace;font-size:0.9em;color:var(--php-400);background:rgba(157,91,255,0.08);padding:1px 6px;border-radius:4px;">var_dump</code> output in a terminal, and copy-pasting code into half a dozen incompatible tools. It's a tool meant to disappear into your workflow — fast, polished, and respectful of your environment.
+      </p>
+
+      <div class="reveal" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <table class="comparison-table" style="min-width: 560px;">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Phplay</th>
+              <th scope="col">Generic alternatives</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Editor</th>
+              <td>Full Monaco editor with PHP language support</td>
+              <td>Terminal line editing</td>
+            </tr>
+            <tr>
+              <th scope="row">Output</th>
+              <td>Rich, structured, expandable</td>
+              <td>Plain text dump</td>
+            </tr>
+            <tr>
+              <th scope="row">Project context</th>
+              <td>Auto-detected and booted</td>
+              <td>Manual setup</td>
+            </tr>
+            <tr>
+              <th scope="row">AI integration</th>
+              <td>Built in, bring your own key</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <th scope="row">Cost</th>
+              <td>Free, open source, MIT licensed</td>
+              <td>Varies</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== OPEN SOURCE ===== -->
+  <section class="section-opensource section-outer" id="open-source" aria-label="Open source">
+    <div class="opensource-glow" aria-hidden="true"></div>
+    <div class="section-inner--narrow" style="position:relative;z-index:1;">
+
+      <p class="eyebrow reveal">OPEN SOURCE</p>
+      <h2 class="opensource-headline reveal">Free, MIT-licensed, and yours to fork.</h2>
+
+      <p class="opensource-body reveal">
+        Phplay is built in the open on GitHub. The code is yours to read, audit, modify, and ship. Pull requests welcome. Issues are read. Forks are encouraged. If you build something cool on top of it, tell us.
+      </p>
+
+      <div class="opensource-cards">
+
+        <a class="opensource-card reveal reveal-left reveal-delay-1" href="https://github.com/rhaymisonbetini/Phplay" target="_blank" rel="noopener noreferrer" aria-label="View Phplay source code on GitHub">
+          <svg class="opensource-card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <p class="opensource-card-title">View the source</p>
+          <p class="opensource-card-body">Star the repo, browse the code, open issues, or contribute. Everything is in the open.</p>
+        </a>
+
+        <a class="opensource-card reveal reveal-right reveal-delay-2" href="https://github.com/rhaymisonbetini" target="_blank" rel="noopener noreferrer" aria-label="View author profile on GitHub">
+          <div class="author-avatar">
+            <img src="https://github.com/rhaymisonbetini.png" alt="Rhaymison Betini GitHub avatar" loading="lazy" decoding="async" width="48" height="48" />
+          </div>
+          <p class="opensource-card-title">Made by Rhaymison Betini</p>
+          <p class="opensource-card-body">PHP developer, AI engineer, open-source enthusiast. Building tools I want to use.</p>
+        </a>
+
+      </div>
+
+      <div class="opensource-badges reveal">
+        <img src="https://img.shields.io/badge/License-MIT-9D5BFF?style=flat-square&logo=opensourceinitiative&logoColor=white" alt="MIT License badge" loading="lazy" decoding="async" />
+        <img src="https://img.shields.io/badge/Built_with-Electron-47848F?style=flat-square&logo=electron&logoColor=white" alt="Built with Electron badge" loading="lazy" decoding="async" />
+        <img src="https://img.shields.io/badge/Powered_by-Vue_3-42b883?style=flat-square&logo=vuedotjs&logoColor=white" alt="Powered by Vue 3 badge" loading="lazy" decoding="async" />
+        <img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP badge" loading="lazy" decoding="async" />
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== DOWNLOAD ===== -->
+  <section class="section-download section-outer" id="download" aria-label="Download Phplay">
+    <div class="section-inner">
+
+      <p class="eyebrow reveal" style="display:block;text-align:center;">DOWNLOAD</p>
+      <h2 class="download-headline reveal" style="text-align:center;margin-left:auto;margin-right:auto;max-width:18ch;">Get Phplay. Now.</h2>
+      <p class="download-subhead reveal" style="text-align:center;max-width:44ch;margin-left:auto;margin-right:auto;">Free for everyone, forever. Pick your platform.</p>
+
+      <div class="download-cards">
+
+        <!-- Linux -->
+        <div class="download-card download-card--available reveal reveal-scale reveal-delay-1">
+          <div class="platform-icon" aria-hidden="true">🐧</div>
+          <p class="platform-name">Linux</p>
+          <p class="platform-formats">AppImage · .deb</p>
+          <!-- REPLACE href with actual GitHub release URL when Electron builds are published -->
+          <a class="btn btn-primary" href="#download-linux" aria-label="Download Phplay for Linux v0.1.0">
+            Download v0.1.0
+          </a>
+        </div>
+
+        <!-- Windows -->
+        <div class="download-card download-card--available reveal reveal-scale reveal-delay-2">
+          <div class="platform-icon" aria-hidden="true">🪟</div>
+          <p class="platform-name">Windows</p>
+          <p class="platform-formats">.exe installer</p>
+          <!-- REPLACE href with actual GitHub release URL when Electron builds are published -->
+          <a class="btn btn-primary" href="#download-windows" aria-label="Download Phplay for Windows v0.1.0">
+            Download v0.1.0
+          </a>
+        </div>
+
+        <!-- macOS — coming soon -->
+        <div class="download-card download-card--soon reveal reveal-scale reveal-delay-3" aria-label="macOS version coming soon">
+          <div class="platform-icon platform-icon--soon" aria-hidden="true">🍎</div>
+          <p class="platform-name" style="color:var(--text-secondary);">macOS</p>
+          <p class="platform-formats">coming soon</p>
+          <a class="btn btn-secondary" href="mailto:rhaymisoncristian@gmail.com?subject=Notify me: Phplay macOS" aria-label="Request macOS notification">
+            Notify me
+          </a>
+        </div>
+
+      </div>
+
+      <p class="download-meta reveal">
+        v0.1.0 · Released 2026 ·
+        <a href="https://github.com/rhaymisonbetini/Phplay/releases" target="_blank" rel="noopener noreferrer">
+          View all releases →
+        </a>
+      </p>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer" aria-label="Site footer">
+  <div class="footer-inner">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand reveal">
+        <div class="footer-logo">
+          <svg class="footer-logo-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <ellipse cx="30" cy="42" rx="18" ry="16" fill="currentColor"/>
+            <ellipse cx="44" cy="28" rx="16" ry="17" fill="currentColor"/>
+            <ellipse cx="32" cy="17" rx="9" ry="11" fill="currentColor"/>
+            <ellipse cx="32" cy="18" rx="5.5" ry="7" fill="currentColor" opacity="0.45"/>
+            <path d="M53 36 Q62 44 57 55 Q55 60 51 58" stroke="currentColor" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <circle cx="47" cy="24" r="2.5" fill="#07080C"/>
+            <rect x="16" y="54" width="9" height="11" rx="4" fill="currentColor"/>
+            <rect x="28" y="56" width="9" height="9" rx="4" fill="currentColor"/>
+            <rect x="37" y="56" width="9" height="9" rx="4" fill="currentColor"/>
+            <path d="M14 40 Q4 36 7 26 Q9 20 14 23" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span class="footer-logo-text">Phplay</span>
+        </div>
+        <p class="footer-tagline">Modern PHP REPL. Open source. Free.</p>
+        <a class="footer-github-link" href="https://github.com/rhaymisonbetini/Phplay" target="_blank" rel="noopener noreferrer" aria-label="Phplay on GitHub">
+          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+
+      <div class="reveal" data-reveal-delay="80">
+        <p class="footer-col-title">Product</p>
+        <nav role="list" class="footer-links" aria-label="Product links">
+          <a class="footer-link" href="#features" role="listitem">Features</a>
+          <a class="footer-link" href="#download" role="listitem">Download</a>
+          <a class="footer-link" href="https://github.com/rhaymisonbetini/Phplay/releases" target="_blank" rel="noopener noreferrer" role="listitem">Changelog</a>
+          <a class="footer-link" href="https://github.com/rhaymisonbetini/Phplay/issues" target="_blank" rel="noopener noreferrer" role="listitem">Roadmap</a>
+        </nav>
+      </div>
+
+      <div class="reveal" data-reveal-delay="160">
+        <p class="footer-col-title">Community</p>
+        <nav role="list" class="footer-links" aria-label="Community links">
+          <a class="footer-link" href="https://github.com/rhaymisonbetini/Phplay" target="_blank" rel="noopener noreferrer" role="listitem">GitHub</a>
+          <a class="footer-link" href="https://github.com/rhaymisonbetini/Phplay/issues" target="_blank" rel="noopener noreferrer" role="listitem">Issues</a>
+          <a class="footer-link" href="https://github.com/rhaymisonbetini/Phplay/discussions" target="_blank" rel="noopener noreferrer" role="listitem">Discussions</a>
+          <a class="footer-link" href="https://github.com/rhaymisonbetini/Phplay/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" role="listitem">MIT License</a>
+        </nav>
+      </div>
+
+    </div>
+
+    <div class="footer-bar">
+      <p class="footer-copyright">© 2026 Phplay · MIT License · Made by Rhaymison Betini</p>
+      <a class="footer-link" href="https://github.com/rhaymisonbetini" target="_blank" rel="noopener noreferrer" style="font-size:var(--text-sm);">@rhaymisonbetini</a>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- Mobile download bar (shows after scrolling past hero) -->
+<div class="mobile-download-bar" id="mobile-download-bar" aria-label="Download Phplay" role="complementary">
+  <!-- REPLACE href with actual GitHub release URLs when Electron builds are published -->
+  <a class="btn btn-primary" href="#download-linux" aria-label="Download Phplay for Linux">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+    Linux
+  </a>
+  <a class="btn btn-secondary" href="#download-windows" aria-label="Download Phplay for Windows">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M3 12V6.75l6-1.32v6.57H3zm17 0v-7.5l-8 1.75v5.75h8zM3 13h6v6.43l-6-1.05V13zm17 0h-8v5.87l8 1.38V13z"/></svg>
+    Windows
+  </a>
+</div>
+
+
+<!-- JS entry — single non-module bundle, works via file:// and HTTP -->
+<script defer src="assets/js/app.js"></script>
+
+</body>
+</html>

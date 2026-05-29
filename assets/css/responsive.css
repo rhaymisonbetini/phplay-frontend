@@ -1,0 +1,288 @@
+/* Mobile first — default styles are for narrow screens */
+
+/* ===== SECTION INNER ===== */
+.section-inner,
+.section-inner--narrow,
+.section-inner--wide {
+  padding-top: var(--space-24);
+  padding-bottom: var(--space-24);
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
+}
+
+/* ===== HERO ===== */
+.hero-logo {
+  width: 72px;
+  height: 72px;
+}
+
+.hero-headline {
+  font-size: var(--text-4xl);
+  letter-spacing: -0.02em;
+}
+
+.hero-subhead {
+  font-size: var(--text-base);
+}
+
+.hero-ctas {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.hero-ctas .btn {
+  width: 100%;
+}
+
+/* ===== GRID ===== */
+.grid-3 {
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.grid-2 {
+  grid-template-columns: 1fr;
+}
+
+/* ===== FEATURE ROWS ===== */
+.feature-row {
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  padding: var(--space-12) 0;
+}
+
+.feature-row--reverse {
+  direction: ltr;
+}
+
+.feature-row--reverse .feature-content {
+  order: 1;
+}
+
+.feature-row--reverse .feature-media {
+  order: 2;
+}
+
+/* ===== HEADLINES ===== */
+.what-headline,
+.why-headline,
+.opensource-headline,
+.download-headline {
+  font-size: var(--text-3xl);
+}
+
+.what-body,
+.why-body,
+.opensource-body {
+  font-size: var(--text-base);
+}
+
+/* ===== OPEN SOURCE ===== */
+.opensource-cards {
+  grid-template-columns: 1fr;
+}
+
+/* ===== DOWNLOAD ===== */
+.download-cards {
+  grid-template-columns: 1fr;
+}
+
+/* ===== NAV ===== */
+.nav-links {
+  display: none;
+}
+
+.nav-hamburger {
+  display: flex;
+}
+
+.github-badge {
+  display: none;
+}
+
+/* ===== FOOTER ===== */
+.footer-grid {
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+}
+
+.footer-bar {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* ===== MOBILE DOWNLOAD BAR ===== */
+.mobile-download-bar {
+  display: flex;
+}
+
+
+/* === Small tablet (640px+) === */
+@media (min-width: 640px) {
+  .hero-headline {
+    font-size: var(--text-5xl);
+  }
+
+  .hero-subhead {
+    font-size: var(--text-lg);
+  }
+
+  .hero-ctas {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-ctas .btn {
+    width: auto;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .download-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+/* === Tablet (768px+) === */
+@media (min-width: 768px) {
+  .section-inner,
+  .section-inner--narrow,
+  .section-inner--wide {
+    padding-top: var(--space-32);
+    padding-bottom: var(--space-32);
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+  }
+
+  .hero-logo {
+    width: 88px;
+    height: 88px;
+  }
+
+  .hero-headline {
+    font-size: var(--text-6xl);
+  }
+
+  .feature-row {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+
+  .feature-row--reverse {
+    direction: rtl;
+  }
+
+  .feature-row--reverse .feature-content,
+  .feature-row--reverse .feature-media {
+    order: unset;
+  }
+
+  .opensource-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .download-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-12);
+  }
+
+  .footer-bar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .mobile-download-bar {
+    display: none;
+  }
+}
+
+
+/* === Tablet (768px+) continued === */
+@media (min-width: 768px) {
+  .github-badge {
+    display: flex;
+  }
+}
+
+/* === Desktop (1024px+) === */
+@media (min-width: 1024px) {
+  .section-inner,
+  .section-inner--narrow,
+  .section-inner--wide {
+    padding-top: var(--space-40);
+    padding-bottom: var(--space-40);
+  }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-hamburger {
+    display: none;
+  }
+
+  .hero-logo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .hero-headline {
+    font-size: var(--text-display);
+  }
+
+  .hero-subhead {
+    font-size: var(--text-xl);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .feature-row {
+    gap: var(--space-16);
+    padding: var(--space-20) 0;
+  }
+
+  .feature-headline {
+    font-size: var(--text-3xl);
+  }
+
+  .what-headline,
+  .why-headline,
+  .opensource-headline,
+  .download-headline {
+    font-size: var(--text-4xl);
+  }
+
+  .what-body,
+  .why-body,
+  .opensource-body {
+    font-size: var(--text-lg);
+  }
+
+  .download-cards {
+    gap: var(--space-6);
+  }
+
+  .footer-grid {
+    gap: var(--space-16);
+  }
+}
+
+
+/* === Large desktop (1280px+) === */
+@media (min-width: 1280px) {
+  .feature-row {
+    gap: var(--space-20);
+  }
+}

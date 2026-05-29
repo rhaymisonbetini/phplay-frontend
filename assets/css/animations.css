@@ -1,0 +1,197 @@
+/* ===== KEYFRAMES ===== */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+@keyframes meshDrift1 {
+  0% { transform: translateX(-50%) translateY(0) scale(1); }
+  100% { transform: translateX(-50%) translateY(40px) scale(1.1); }
+}
+
+@keyframes meshDrift2 {
+  0% { transform: translateX(0) translateY(0) scale(1); }
+  100% { transform: translateX(60px) translateY(-40px) scale(1.15); }
+}
+
+@keyframes meshDrift3 {
+  0% { transform: translateX(0) translateY(0) scale(1); }
+  100% { transform: translateX(-40px) translateY(30px) scale(0.9); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.25; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes ripple {
+  0%   { transform: translate(-50%, -50%) scale(0);   opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(80);  opacity: 0; }
+}
+
+
+/* ===== HERO CONTENT STAGGER ===== */
+.hero-logo {
+  animation: heroFadeIn 0.8s var(--ease-out) 0.1s both, logoFloat 6s ease-in-out 1s infinite;
+}
+
+.hero-eyebrow {
+  animation: heroFadeIn 0.7s var(--ease-out) 0.2s both;
+}
+
+.hero-headline {
+  animation: heroFadeIn 0.8s var(--ease-out) 0.3s both;
+}
+
+.hero-subhead {
+  animation: heroFadeIn 0.8s var(--ease-out) 0.45s both;
+}
+
+.hero-ctas {
+  animation: heroFadeIn 0.8s var(--ease-out) 0.6s both;
+}
+
+.hero-cta-secondary {
+  animation: heroFadeIn 0.8s var(--ease-out) 0.75s both;
+}
+
+.hero-scroll {
+  animation: heroFadeIn 0.8s var(--ease-out) 1s both;
+}
+
+
+/* ===== SCROLL REVEALS ===== */
+/* Only hide when JS is loaded (js class added by main.js) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.js .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Directional variants — override the translateY with a lateral slide */
+.js .reveal.reveal-left  { transform: translateX(-32px); }
+.js .reveal.reveal-right { transform: translateX(32px); }
+.js .reveal.reveal-scale { transform: scale(0.96); }
+
+.js .reveal.reveal-left.visible,
+.js .reveal.reveal-right.visible,
+.js .reveal.reveal-scale.visible {
+  transform: none;
+}
+
+/* CSS-based stagger for grouped cards (pillar, download) */
+.reveal-delay-1 { transition-delay: 50ms; }
+.reveal-delay-2 { transition-delay: 130ms; }
+.reveal-delay-3 { transition-delay: 210ms; }
+.reveal-delay-4 { transition-delay: 290ms; }
+
+
+/* ===== CURSOR GLOW ===== */
+#cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(157, 91, 255, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  transition: opacity var(--transition-base);
+  opacity: 0;
+}
+
+#cursor-glow.visible {
+  opacity: 1;
+}
+
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  #hero-canvas {
+    display: none;
+  }
+
+  .mesh-orb {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  #cursor-glow {
+    display: none;
+  }
+
+  .feature-media {
+    will-change: auto;
+    transform: none !important;
+  }
+
+  .btn::after {
+    display: none;
+  }
+
+  .card::before {
+    display: none;
+  }
+
+  .hero-logo,
+  .hero-eyebrow,
+  .hero-headline,
+  .hero-subhead,
+  .hero-ctas,
+  .hero-cta-secondary,
+  .hero-scroll {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

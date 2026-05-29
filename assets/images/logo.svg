@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+  <!-- Body -->
+  <ellipse cx="30" cy="42" rx="18" ry="16" fill="currentColor"/>
+  <!-- Head -->
+  <ellipse cx="44" cy="28" rx="16" ry="17" fill="currentColor"/>
+  <!-- Ear -->
+  <ellipse cx="32" cy="17" rx="9" ry="11" fill="currentColor"/>
+  <!-- Ear inner -->
+  <ellipse cx="32" cy="18" rx="5.5" ry="7" fill="currentColor" opacity="0.45"/>
+  <!-- Trunk -->
+  <path d="M53 36 Q62 44 57 55 Q55 60 51 58" stroke="currentColor" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <!-- Eye -->
+  <circle cx="47" cy="24" r="2.5" fill="#07080C"/>
+  <circle cx="47.8" cy="23.2" r="0.9" fill="white" opacity="0.7"/>
+  <!-- Tusk hint -->
+  <path d="M52 39 L59 46" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+  <!-- Front legs -->
+  <rect x="16" y="54" width="9" height="11" rx="4" fill="currentColor"/>
+  <rect x="28" y="56" width="9" height="9" rx="4" fill="currentColor"/>
+  <rect x="37" y="56" width="9" height="9" rx="4" fill="currentColor"/>
+  <!-- Tail -->
+  <path d="M14 40 Q4 36 7 26 Q9 20 14 23" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+</svg>

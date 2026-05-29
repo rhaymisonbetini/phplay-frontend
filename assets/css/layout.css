@@ -1,0 +1,89 @@
+/* Section wrapper pattern: outer handles bg + vertical padding, inner handles max-width + horizontal padding */
+.section-outer {
+  position: relative;
+  width: 100%;
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-40) var(--space-8);
+}
+
+.section-inner--narrow {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--space-40) var(--space-8);
+}
+
+.section-inner--wide {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-40) var(--space-8);
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+
+/* Grid systems */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-8);
+}
+
+/* Feature row layout */
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+  padding: var(--space-20) 0;
+}
+
+.feature-row--reverse {
+  direction: rtl;
+}
+
+.feature-row--reverse > * {
+  direction: ltr;
+}
+
+/* Flex utilities */
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section separator */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-subtle);
+}
